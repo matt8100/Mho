@@ -13,8 +13,9 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'consistent-return': 'off',
-    'object-curly-newline': ['error', {
-      ObjectPattern: 'off',
-    }],
+    'class-methods-use-this': 'off',
+    'func-names': ['error', 'as-needed'],
+    'arrow-body-style': ['error', 'as-needed'],
+    'no-restricted-globals': ['error', 'off'],
   },
 };

@@ -9,7 +9,8 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "eslint": "^7.26.0"
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb": "^18.2.1"
   },
   "name": "mho",
   "description": "A Discord bot for the UofT ECE 2T4 server.",
