@@ -19,7 +19,9 @@ client.setProvider(
 // Client configuration
 client.registry
 .registerDefaultTypes()
-.registerGroups([])
+.registerGroups([
+	['school', 'UofT-related commands']
+])
 .registerDefaultGroups()
 .registerDefaultCommands({
 	unknownCommand: false,
