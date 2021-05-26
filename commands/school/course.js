@@ -27,40 +27,48 @@ module.exports = class Template extends Command {
     const h1Url = `${baseUrl}/course/${courseCode}h1`;
     const y1Url = `${baseUrl}/course/${courseCode}y1`;
 
+    function getRelated($, fieldName) {
+      if (!($(`.field--name-field-${fieldName}`).length)) return false; // if element DNE
+      const courseCodes = $(`.field--name-field-${fieldName} > div`).slice(1).map(function() { return $(this).text()}).get()[0];
+      const courseLinks = $(`.field--name-field-${fieldName} > div a`).map(function() { return $(this).attr('href'); }).get();
+      
+      if (isNaN(courseCodes.slice(courseCodes.length - 1)))
+        return courseCodes;
+      else {
+        const splitCodes = courseCodes.split(/[ /]/); // delimit by whitespace and slash
+        let courseText = "";
+        for (let i = 0; i < splitCodes.length; i++) {
+          courseText += `[${splitCodes[i]}](${baseUrl + courseLinks[i]})`
+          if (splitCodes[i].slice(splitCodes[i].length - 1) != ";" && i < splitCodes.length - 1)
+            courseText += "/";
+          else
+            courseText += " ";
+        }
+
+        return courseText;
+      }
+    }
+
     function constructEmbed(response) {
       const $ = cheerio.load(response.data);
+  
       const courseTitle = $('h1').text();
+      const courseUrl = response.request.res.responseUrl;
       const courseDescription = $('p').text();
-
-      const prereqCodes = $('.field--name-field-prerequisite > div a').map(function() { return $(this).text()}).get();
-      const prereqLinks = $('.field--name-field-prerequisite > div a').map(function() { return $(this).attr('href'); }).get();
-      let coursePrereqs = "";
-      for (let i = 0; i < prereqCodes.length; i++) {
-        coursePrereqs += `[${prereqCodes[i]}](${baseUrl + prereqLinks[i]})`
-        if (i < prereqCodes.length - 1) coursePrereqs += "/";
-      }
-
-      const prepCodes = $('.field--name-field-recommended-preparation > div a').map(function() { return $(this).text()}).get();
-      const prepLinks = $('.field--name-field-recommended-preparation > div a').map(function() { return $(this).attr('href'); }).get();
-      let coursePrep = "";
-      for (let i = 0; i < prepCodes.length; i++) {
-        coursePrep += `[${prepCodes[i]}](${baseUrl + prepLinks[i]})`
-        if (i < prepCodes.length - 1) coursePrep += "/";
-      }
+      const coursePrereqs = getRelated($, "prerequisite");
+      const coursePrep = getRelated($, "recommended-preparation");
+      const courseExclusions = getRelated($, "exclusion");
       
-      const responseUrl = response.request.res.responseUrl;
-
       const embed = new MessageEmbed()
         .setColor('#162951')
         .setTitle(courseTitle)
-        .setURL(responseUrl)
-        .setDescription(courseDescription)
-        .addFields(
-          { name: 'Prerequisite', value: coursePrereqs },
-          { name: 'Recommended Preparation', value: coursePrep },
-        )
+        .setURL(courseUrl)
+        .setDescription(courseDescription);
 
-        return embed;
+      if (coursePrereqs) embed.addField('Prerequisite', coursePrereqs);
+      if (coursePrep) embed.addField('Recommended Preparation', coursePrep)
+      if (courseExclusions) embed.addField('Exclusions', courseExclusions)
+      return embed;
     }
 
     async function fetchHTML(url) {
