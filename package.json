@@ -1,0 +1,36 @@
+{
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "discord.js-commando": "^0.12.3",
+    "dotenv": "^9.0.2",
+    "sqlite": "^4.0.22",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0"
+  },
+  "name": "mho",
+  "description": "A Discord bot for the UofT ECE 2T4 server.",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matt8100/Mho.git"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "discordjs",
+    "node",
+    "bot"
+  ],
+  "author": "Matthew Mao <matthew.mao@mail.utoronto.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matt8100/Mho/issues"
+  },
+  "homepage": "https://github.com/matt8100/Mho#readme"
+}
