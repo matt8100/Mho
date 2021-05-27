@@ -19,6 +19,10 @@ module.exports = class Template extends Command {
           type: 'string',
         },
       ],
+      throttling: {
+        usages: 2,
+        duration: 10,
+      },
     });
   }
 
@@ -53,6 +57,7 @@ module.exports = class Template extends Command {
       const courseUrl = response.request.res.responseUrl;
       const courseDescription = $('p').text();
       const coursePrereqs = getRelated($, 'prerequisite');
+      const courseCoreq = getRelated($, 'corequisite');
       const coursePrep = getRelated($, 'recommended-preparation');
       const courseExclusions = getRelated($, 'exclusion');
 
@@ -63,6 +68,7 @@ module.exports = class Template extends Command {
         .setDescription(courseDescription);
 
       if (coursePrereqs) embed.addField('Prerequisite', coursePrereqs);
+      if (courseCoreq) embed.addField('Corequisite', courseCoreq);
       if (coursePrep) embed.addField('Recommended Preparation', coursePrep);
       if (courseExclusions) embed.addField('Exclusions', courseExclusions);
       return embed;
@@ -76,6 +82,6 @@ module.exports = class Template extends Command {
 
     const embed = await fetchHTML(h1Url) ? await fetchHTML(h1Url) : await fetchHTML(y1Url);
     if (embed) return message.embed(embed);
-    return message.say('Course not found!');
+    return message.reply('Course not found!');
   }
 };
