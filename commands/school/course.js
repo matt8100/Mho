@@ -17,6 +17,7 @@ module.exports = class Template extends Command {
           key: 'arg',
           prompt: 'What is the course code you are trying to look up?',
           type: 'string',
+          validate: (text) => { if (text.length < 10) return true; },
         },
       ],
       throttling: {
