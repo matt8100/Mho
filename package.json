@@ -7,7 +7,7 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "eslint": "^7.26.0"
+    "eslint": "7.27.0"
   },
   "name": "mho",
   "description": "A Discord bot for the UofT ECE 2T4 server.",
