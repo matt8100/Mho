@@ -1,35 +1,35 @@
 const { Command } = require('discord.js-commando');
 
 module.exports = class Template extends Command {
-	constructor(client) {
-		super(client, {
-			name: 'template',
-			aliases: ['t', 'temp'],
-			group: 'utility',
-			memberName: 'template',
-			description: 'A command template',
+  constructor(client) {
+    super(client, {
+      name: 'template',
+      aliases: ['t', 'temp'],
+      group: 'utility',
+      memberName: 'template',
+      description: 'A command template',
       guildOnly: false,
       clientPermissions: ['ADMINISTRATOR'],
-			userPermissions: ['MANAGE_MESSAGES'],
+      userPermissions: ['MANAGE_MESSAGES'],
       throttling: {
-				usages: 2,
-				duration: 10,
-			},
+        usages: 2,
+        duration: 10,
+      },
       args: [
-				{
-					key: 'text',
-					prompt: 'What text would you like the bot to say?',
-					type: 'string',
-          validate: text => text.length < 201,
+        {
+          key: 'text',
+          prompt: 'What text would you like the bot to say?',
+          type: 'string',
+          validate: (text) => text.length < 201,
           oneOf: ['yes', 'no'],
-				},
-			],
-		});
-	}
+        },
+      ],
+    });
+  }
 
-	run(message) {
-    return message.say("This is a template command!")
-	}
+  run(message) {
+    return message.say('This is a template command!');
+  }
 };
 
 /*
