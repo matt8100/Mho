@@ -1,8 +1,7 @@
 // Dependencies
 require('dotenv').config();
 const Commando = require('discord.js-commando');
-const sqlite = require('sqlite');
-const sqlite3 = require('sqlite3');
+const Database = require('better-sqlite3');
 const path = require('path');
 
 const client = new Commando.Client({
@@ -10,10 +9,10 @@ const client = new Commando.Client({
 });
 
 // SQLite database
-client.db = new sqlite3.Database('database.db');
+client.db = new Database('database.db');
 
 client.setProvider(
-  sqlite.open({ filename: 'database.db', driver: sqlite3.Database }).then((db) => new Commando.SQLiteProvider(db)),
+  new Commando.SyncSQLiteProvider(new Database(path.join(__dirname, 'database.db'))),
 ).catch(console.error);
 
 // Client configuration
