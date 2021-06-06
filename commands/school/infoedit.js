@@ -41,6 +41,7 @@ module.exports = class InfoEdit extends Command {
 
     function add() {
       if (!arg.value) return message.reply('No text specified!');
+      if (arg.key === 'list') return message.react('❌');
       const stmt = client.db.prepare(`INSERT INTO info (key, value) VALUES (lower('${arg.key}'), '${arg.value}')`);
       client.db.transaction(() => {
         try {
