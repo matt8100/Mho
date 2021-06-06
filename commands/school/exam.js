@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 const cheerio = require('cheerio');
 const axios = require('axios');
 
-module.exports = class Template extends Command {
+module.exports = class Exam extends Command {
   constructor(client) {
     super(client, {
       name: 'exam',
@@ -14,7 +14,7 @@ module.exports = class Template extends Command {
       guildOnly: false,
       args: [
         {
-          key: 'arg',
+          key: 'code',
           prompt: 'What is the course code you are trying to look up?',
           type: 'string',
           validate: (text) => { if (text.length < 10) return true; },
@@ -22,13 +22,13 @@ module.exports = class Template extends Command {
       ],
       throttling: {
         usages: 2,
-        duration: 10,
+        duration: 5,
       },
     });
   }
 
-  async run(message, { arg }) {
-    const courseCode = arg.toUpperCase();
+  async run(message, arg) {
+    const courseCode = arg.code.toUpperCase();
     const baseUrl = 'https://engineering.calendar.utoronto.ca/course/';
     const scheduleUrl = 'https://portal.engineering.utoronto.ca/sites/timetable/fes.aspx';
 
@@ -70,10 +70,12 @@ module.exports = class Template extends Command {
 
     async function fetchHTML(url) {
       const response = await axios.get(url);
-      return constructEmbed(response);
+      if (response.request.res.responseUrl !== url) return;
+      return response;
     }
 
-    const embed = await fetchHTML(scheduleUrl);
+    const response = await fetchHTML(scheduleUrl);
+    const embed = constructEmbed(response);
     if (embed.url === baseUrl) return message.reply('Course not found!');
     return message.embed(embed);
   }

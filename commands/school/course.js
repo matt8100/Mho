@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 const cheerio = require('cheerio');
 const axios = require('axios');
 
-module.exports = class Template extends Command {
+module.exports = class Course extends Command {
   constructor(client) {
     super(client, {
       name: 'course',
@@ -14,33 +14,36 @@ module.exports = class Template extends Command {
       guildOnly: false,
       args: [
         {
-          key: 'arg',
+          key: 'code',
           prompt: 'What is the course code you are trying to look up?',
           type: 'string',
           validate: (text) => { if (text.length < 10) return true; },
         },
       ],
       throttling: {
-        usages: 2,
-        duration: 10,
+        usages: 3,
+        duration: 5,
       },
     });
   }
 
-  async run(message, { arg }) {
-    const courseCode = arg.toLowerCase();
+  async run(message, arg) {
+    const courseCode = arg.code.toLowerCase();
     const baseUrl = 'https://engineering.calendar.utoronto.ca';
     const h1Url = `${baseUrl}/course/${courseCode}h1`;
     const y1Url = `${baseUrl}/course/${courseCode}y1`;
 
+    // Retrieves field text
     function getRelated($, fieldName) {
-      if (!($(`.field--name-field-${fieldName}`).length)) return false; // if element DNE
+      if (!($(`.field--name-field-${fieldName}`).length)) return false; // if element DNE return
       const courseCodes = $(`.field--name-field-${fieldName} > div`).slice(1).map(function courseCodes() { return $(this).text(); }).get()[0];
       const courseLinks = $(`.field--name-field-${fieldName} > div a`).map(function courseLinks() { return $(this).attr('href'); }).get();
+      const splitCodes = courseCodes.split(/[ /]/); // delimit by whitespace and slash
 
+      // If last char of text is not a number, return as string.
       if (isNaN(courseCodes.slice(courseCodes.length - 1))) return courseCodes;
 
-      const splitCodes = courseCodes.split(/[ /]/); // delimit by whitespace and slash
+      // Populate return string
       let courseText = '';
       for (let i = 0; i < splitCodes.length; i += 1) {
         courseText += `[${splitCodes[i]}](${baseUrl + courseLinks[i]})`;
@@ -78,10 +81,11 @@ module.exports = class Template extends Command {
     async function fetchHTML(url) {
       const response = await axios.get(url);
       if (response.request.res.responseUrl !== url) return;
-      return constructEmbed(response);
+      return response;
     }
 
-    const embed = await fetchHTML(h1Url) ? await fetchHTML(h1Url) : await fetchHTML(y1Url);
+    const response = await fetchHTML(h1Url) ? await fetchHTML(h1Url) : await fetchHTML(y1Url);
+    const embed = constructEmbed(response);
     if (embed) return message.embed(embed);
     return message.reply('Course not found!');
   }
