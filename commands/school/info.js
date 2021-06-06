@@ -25,17 +25,30 @@ module.exports = class Info extends Command {
 
   run(message, arg) {
     const { client } = this;
-    const stmt = client.db.prepare(`SELECT * FROM info WHERE key = lower('${arg.key}')`);
 
-    client.db.transaction(() => {
-      try {
-        const info = stmt.get();
-        if (info) {
-          message.say(info.value);
-        } else message.react('❌');
-      } catch (err) {
-        message.react('❌');
-      }
-    })();
+    if (arg.key === 'list') {
+      const stmt = client.db.prepare('SELECT key FROM INFO');
+      client.db.transaction(() => {
+        try {
+          const keys = stmt.all();
+          for (let i = 0; i < keys.length; i += 1) keys[i] = keys[i].key;
+          message.say(keys.sort().join(', '));
+        } catch (err) {
+          message.react('❌');
+        }
+      })();
+    } else {
+      const stmt = client.db.prepare(`SELECT * FROM info WHERE key = lower('${arg.key}')`);
+      client.db.transaction(() => {
+        try {
+          const info = stmt.get();
+          if (info) {
+            message.say(info.value);
+          } else message.react('❌');
+        } catch (err) {
+          message.react('❌');
+        }
+      })();
+    }
   }
 };
