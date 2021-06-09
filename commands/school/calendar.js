@@ -37,7 +37,7 @@ module.exports = class Calendar extends Command {
       const title = $('h2').first().text();
       // Retrieve calendar table in JSON syntax with keys "date" and "event"
       const table = $('table').slice(0, 3).find('tr').get()
-        .map((row) => $(row).find('td').get().map((cell) => $(cell).html()))
+        .map((row) => $(row).find('td').get().map((cell) => $(cell).text().trim().replace(/\t+/g, '')))
         .map((x) => ({ date: x[0], event: x[1] }));
       const fuse = new Fuse(table, { keys: ['date', 'event'] });
       const result = fuse.search(arg.search, { limit: 1 });
