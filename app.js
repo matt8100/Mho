@@ -24,13 +24,14 @@ client.registry
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
+    eval: false,
     unknownCommand: false,
   })
   .registerCommandsIn(path.join(__dirname, 'commands'));
 
 // Client login and connect
 client.once('ready', () => {
-  client.user.setActivity('24/7 experimentally');
+  client.user.setActivity('&help', { type: 'LISTENING' });
   console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
 });
 
