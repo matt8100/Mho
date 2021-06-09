@@ -8,7 +8,7 @@ module.exports = class Info extends Command {
       aliases: ['i'],
       group: 'school',
       memberName: 'info',
-      description: 'Lookup info about a topic',
+      description: 'Lookup info about a topic. Use `info list` for a list of topics',
       guildOnly: false,
       throttling: {
         usages: 2,
