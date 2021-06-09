@@ -76,7 +76,7 @@ module.exports = class Exam extends Command {
 
     const response = await fetchHTML(scheduleUrl);
     const embed = constructEmbed(response);
-    if (embed.url === baseUrl) return message.reply('Course not found!');
-    return message.embed(embed);
+    if (embed.url !== baseUrl) return message.embed(embed);
+    message.react('❌');
   }
 };

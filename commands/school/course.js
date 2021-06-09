@@ -87,6 +87,6 @@ module.exports = class Course extends Command {
     const response = await fetchHTML(h1Url) ? await fetchHTML(h1Url) : await fetchHTML(y1Url);
     const embed = constructEmbed(response);
     if (embed) return message.embed(embed);
-    return message.reply('Course not found!');
+    return message.react('❌');
   }
 };
