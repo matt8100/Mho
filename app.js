@@ -2,6 +2,7 @@
 require('dotenv').config();
 const Commando = require('discord.js-commando');
 const path = require('path');
+const fs = require('fs');
 
 const client = new Commando.Client({
   owner: '115661304831803393',
@@ -20,6 +21,9 @@ client.registry
   .registerDefaultTypes()
   .registerGroups([
     ['school', 'UofT-related commands'],
+    ['event', 'Deadline Scheduling'],
+    ['cross-server', 'Cross-server Chat'],
+    ['channel-count', 'Channel Counters'],
     ['misc', 'Miscellaneous commands'],
   ])
   .registerDefaultGroups()
@@ -28,12 +32,12 @@ client.registry
   })
   .registerCommandsIn(path.join(__dirname, 'commands'));
 
-// Client login and connect
-client.once('ready', () => {
-  client.user.setActivity('&help', { type: 'LISTENING' });
-  console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
+// Event handler
+fs.readdirSync('./events').filter((file) => file.endsWith('.js')).forEach((file) => {
+  // eslint-disable-next-line global-require, import/no-dynamic-require
+  const event = require(`./events/${file}`);
+  if (event.once) client.once(event.name, (...args) => event.execute(...args, client));
+  else client.on(event.name, (...args) => event.execute(...args, client));
 });
-
-client.on('error', console.error);
 
 client.login(process.env.BOT_TOKEN);
