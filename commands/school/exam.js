@@ -68,13 +68,7 @@ module.exports = class Exam extends Command {
       return embed;
     }
 
-    async function fetchHTML(url) {
-      const response = await axios.get(url);
-      if (response.request.res.responseUrl !== url) return;
-      return response;
-    }
-
-    const response = await fetchHTML(scheduleUrl);
+    const response = await axios.get(scheduleUrl);
     const embed = constructEmbed(response);
     if (embed.url !== baseUrl) return message.embed(embed);
     message.react('❌');

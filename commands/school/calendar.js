@@ -39,9 +39,10 @@ module.exports = class Calendar extends Command {
       const table = $('table').slice(0, 3).find('tr').get()
         .map((row) => $(row).find('td').get().map((cell) => $(cell).text().trim().replace(/\t+/g, '')))
         .map((x) => ({ date: x[0], event: x[1] }));
+
+      // fuzzy search
       const fuse = new Fuse(table, { keys: ['date', 'event'] });
       const result = fuse.search(arg.search, { limit: 1 });
-      console.log(result);
       if (!result.length) return;
 
       const embed = new MessageEmbed()
@@ -53,12 +54,7 @@ module.exports = class Calendar extends Command {
       return embed;
     }
 
-    async function fetchHTML(url) {
-      const response = await axios.get(url);
-      return response;
-    }
-
-    const response = await fetchHTML(baseUrl);
+    const response = await axios.get(baseUrl);
     const embed = constructEmbed(response);
     if (embed) return message.embed(embed);
     message.react('❌');
