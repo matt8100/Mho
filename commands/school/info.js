@@ -26,6 +26,7 @@ module.exports = class Info extends Command {
 
   run(message, arg) {
     const { client } = this;
+    const guild = message.guild.id;
 
     function constructEmbed(value) {
       const embed = new MessageEmbed()
@@ -36,7 +37,7 @@ module.exports = class Info extends Command {
 
     // For listing all existing keys
     if (arg.key === 'list') {
-      const stmt = client.db.prepare('SELECT key FROM INFO');
+      const stmt = client.db.prepare(`SELECT key FROM INFO WHERE guild = '${guild}'`);
       client.db.transaction(() => {
         try {
           const keys = stmt.all(); // Retrieves array of single-element JSONs
@@ -47,7 +48,7 @@ module.exports = class Info extends Command {
         }
       })();
     } else { // Standard run
-      const stmt = client.db.prepare(`SELECT * FROM info WHERE key = lower('${arg.key}')`);
+      const stmt = client.db.prepare(`SELECT * FROM info WHERE guild = '${guild}' AND key = lower('${arg.key}')`);
       client.db.transaction(() => {
         try {
           const info = stmt.get();
