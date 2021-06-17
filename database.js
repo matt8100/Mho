@@ -3,17 +3,17 @@ const Database = require('better-sqlite3');
 
 const db = new Database('database.db');
 
-{ // info table
-  const infoTable = db.prepare(
-    `CREATE TABLE IF NOT EXISTS info (
+// info table
+db.prepare(
+  `CREATE TABLE IF NOT EXISTS info (
       guild TEXT NOT NULL,
       key TEXT(32) NOT NULL,
       value TEXT(1000) NOT NULL
     );`,
-  );
+).run();
 
-  const serverLimitTrigger = db.prepare(
-    `CREATE TRIGGER IF NOT EXISTS server_limit
+db.prepare(
+  `CREATE TRIGGER IF NOT EXISTS server_limit
       BEFORE INSERT ON info
     BEGIN
       SELECT
@@ -23,10 +23,10 @@ const db = new Database('database.db');
             RAISE (ABORT, 'Too many entries!')
         END;
     END;`,
-  );
+).run();
 
-  const perServerUniqueKeyTrigger = db.prepare(
-    `CREATE TRIGGER IF NOT EXISTS per_server_unique_key
+db.prepare(
+  `CREATE TRIGGER IF NOT EXISTS per_server_unique_key
       BEFORE INSERT ON info
     BEGIN
       SELECT
@@ -36,17 +36,6 @@ const db = new Database('database.db');
             RAISE (ABORT, 'Entry already exists!')
         END;
       END;`,
-  );
-
-  db.transaction(() => {
-    try {
-      infoTable.run();
-      serverLimitTrigger.run();
-      perServerUniqueKeyTrigger.run();
-    } catch (err) {
-      throw (err.message);
-    }
-  });
-}
+).run();
 
 module.exports = db;
