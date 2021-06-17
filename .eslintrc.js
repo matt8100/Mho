@@ -17,5 +17,6 @@ module.exports = {
     'func-names': ['error', 'as-needed'],
     'arrow-body-style': ['error', 'as-needed'],
     'no-restricted-globals': ['error', 'off'],
+    'default-case': 'off',
   },
 };
