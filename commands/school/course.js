@@ -60,10 +60,6 @@ module.exports = class Course extends Command {
       const courseTitle = $('h1').text();
       const courseUrl = response.request.res.responseUrl;
       const courseDescription = $('p').text();
-      const coursePrereqs = getRelated($, 'prerequisite');
-      const courseCoreq = getRelated($, 'corequisite');
-      const coursePrep = getRelated($, 'recommended-preparation');
-      const courseExclusions = getRelated($, 'exclusion');
 
       const embed = new MessageEmbed()
         .setColor('#162951')
@@ -71,10 +67,17 @@ module.exports = class Course extends Command {
         .setURL(courseUrl)
         .setDescription(courseDescription);
 
+      // fields that may or may not be there
+      const coursePrereqs = getRelated($, 'prerequisite');
+      const courseCoreq = getRelated($, 'corequisite');
+      const coursePrep = getRelated($, 'recommended-preparation');
+      const courseExclusions = getRelated($, 'exclusion');
+
       if (coursePrereqs) embed.addField('Prerequisite', coursePrereqs);
       if (courseCoreq) embed.addField('Corequisite', courseCoreq);
       if (coursePrep) embed.addField('Recommended Preparation', coursePrep);
       if (courseExclusions) embed.addField('Exclusions', courseExclusions);
+
       return embed;
     }
 
@@ -84,6 +87,7 @@ module.exports = class Course extends Command {
       return response;
     }
 
+    // courses are either h1 or y1
     const response = await fetchHTML(h1Url) ? await fetchHTML(h1Url) : await fetchHTML(y1Url);
     const embed = constructEmbed(response);
     if (embed) return message.embed(embed);
