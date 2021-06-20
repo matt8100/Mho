@@ -10,7 +10,7 @@ const client = new Commando.Client({
 });
 
 // SQLite database
-client.db = require('./database');
+client.db = require('./config/database');
 
 client.setProvider(
   new Commando.SyncSQLiteProvider(client.db),
@@ -21,9 +21,6 @@ client.registry
   .registerDefaultTypes()
   .registerGroups([
     ['school', 'UofT-related commands'],
-    ['event', 'Deadline Scheduling'],
-    ['cross-server', 'Cross-server Chat'],
-    ['channel-count', 'Channel Counters'],
     ['misc', 'Miscellaneous commands'],
   ])
   .registerDefaultGroups()

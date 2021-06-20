@@ -34,7 +34,7 @@ module.exports = class Bot extends Command {
         .setTitle('Buy me a coffee! ☕')
         .setURL('https://ko-fi.com/matt8100')
         .setDescription('If you\'d like, you can support my development by buying my creator a coffee!')
-        .setThumbnail('https://github.com/matt8100/Mho/blob/staging/avatar.png?raw=true');
+        .setThumbnail('https://github.com/matt8100/Mho/blob/main/assets/avatar.png?raw=true');
 
       return embed;
     }
@@ -44,7 +44,7 @@ module.exports = class Bot extends Command {
         .setColor('#162951')
         .setTitle('Mho')
         .setDescription('You can find the [source code on GitHub](https://github.com/matt8100/Mho). Got a feature suggestion? Open up an issue and tell me about it!')
-        .setThumbnail('https://github.com/matt8100/Mho/blob/staging/avatar.png?raw=true')
+        .setThumbnail('https://github.com/matt8100/Mho/blob/main/assets/avatar.png?raw=true')
         .addFields(
           { name: 'Creator:', value: client.owners[0].tag, inline: true },
           { name: 'Created At:', value: DateTime.fromISO('2021-05-19T07:01:20Z').toLocaleString(DateTime.DATETIME_FULL), inline: true },

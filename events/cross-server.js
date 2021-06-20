@@ -18,7 +18,7 @@ module.exports = {
       message.client.guilds.cache.filter((guild) => (guild.settings.get('cross-server-whitelist') && message.guild.id !== guild.id)).forEach((guild) => {
         const channelId = guild.settings.get('cross-server-channel');
         const crossChannel = guild.channels.cache.get(channelId);
-        crossChannel.send(embed);
+        if (crossChannel) crossChannel.send(embed);
       });
     }
   },
