@@ -75,5 +75,21 @@
 			"  .addField('Inline field title', 'Some value here', true)",
 		],
 		"description": "Constructs an embed"
+	},
+
+	"Event listener template": {
+		"prefix": "listener",
+		"body": [
+			"module.exports = {",
+			"  name: '$1',",
+			"  once: ${2:false},",
+			"",
+			"  execute($3) {",
+			"    $0",
+			"  },",
+			"};",
+			""
+		],
+		"description": "Event listener template"
 	}
 }

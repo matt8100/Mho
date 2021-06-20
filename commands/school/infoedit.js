@@ -19,13 +19,13 @@ module.exports = class InfoEdit extends Command {
           key: 'option',
           prompt: 'Do you want to `add`, `edit`, or `delete` info?',
           type: 'string',
-          oneOf: ['add', 'a', 'edit', 'e', 'delete', 'del', 'd', 'rm'],
+          oneOf: ['add', 'edit', 'delete'],
         },
         {
           key: 'key',
           prompt: 'What is the key of the info you want to edit?',
           type: 'string',
-          validate: (text) => { if (text.length <= 20) return true; },
+          validate: (text) => { if (text.length <= 32) return true; },
         },
         {
           key: 'value',
@@ -87,17 +87,12 @@ module.exports = class InfoEdit extends Command {
 
     switch (arg.option) {
       case 'add':
-      case 'a':
         add();
         return message;
       case 'edit':
-      case 'e':
         edit();
         return message;
       case 'delete':
-      case 'del':
-      case 'd':
-      case 'rm':
         del();
         return message;
       default:

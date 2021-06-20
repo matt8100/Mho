@@ -4,9 +4,9 @@ module.exports = class Cross extends Command {
   constructor(client) {
     super(client, {
       name: 'cross',
-      group: 'cross-server',
+      group: 'misc',
       memberName: 'cross',
-      description: '',
+      description: 'For setting up cross-server chat.',
       guildOnly: true,
       userPermissions: ['ADMINISTRATOR'],
       throttling: {
@@ -38,10 +38,13 @@ module.exports = class Cross extends Command {
       case 'channel':
         if (!arg.channel) return message.say('Specify a channel!');
         settings.set('cross-server-channel', arg.channel.id);
+        message.react('✅');
         break;
       case 'toggle': {
         const toggleState = 1 - settings.get('cross-server-enabled', 0);
         settings.set('cross-server-enabled', toggleState);
+        if (toggleState) message.react('▶');
+        else message.react('⏹');
         break;
       }
     }
