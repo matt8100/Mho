@@ -33,22 +33,38 @@ module.exports = class Calendar extends Command {
 
     function constructEmbed(response) {
       const $ = cheerio.load(response.data);
-
       const title = $('h2').first().text();
-      // Retrieve calendar table in JSON syntax with keys "date" and "event"
-      const table = $('table').slice(0, 3).find('tr').get()
-        .map((row) => $(row).find('td').get().map((cell) => $(cell).text().trim().replace(/\t+/g, '')))
-        .map((x) => ({ date: x[0], event: x[1] }));
+      const tables = [];
+
+      $('table')
+        .slice(0, 3)
+        .prev('h3')
+        .get()
+        .map((header) => $(header).text())
+        .forEach((calendar, index) => {
+          const table = $(`table:eq(${index})`)
+            .find('tr')
+            .get()
+            .map((row) => $(row).find('td').get().map((cell) => $(cell).text().trim().replace(/\t+/g, '')))
+            .map((x) => ({ calendar, date: x[0], event: x[1] }));
+          tables.push(table);
+        });
 
       // fuzzy search
-      const fuse = new Fuse(table, { keys: ['date', 'event'] });
-      const result = fuse.search(arg.search, { limit: 1 });
+      const fuse = new Fuse(tables.flat(), {
+        keys: ['calendar', 'date', 'event'],
+        includeScore: true,
+        ignoreLocation: true,
+      });
+      const result = fuse.search(arg.search);
+      console.log(result)
       if (!result.length) return;
 
       const embed = new MessageEmbed()
         .setColor('#162951')
         .setTitle(title)
         .setURL(baseUrl)
+        .setDescription(`__${result[0].item.calendar}__`)
         .addField(result[0].item.date, result[0].item.event);
 
       return embed;
