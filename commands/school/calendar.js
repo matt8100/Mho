@@ -31,9 +31,20 @@ module.exports = class Calendar extends Command {
   async run(message, arg) {
     const baseUrl = 'https://engineering.calendar.utoronto.ca/sessional-dates';
 
-    function constructEmbed(response) {
+    function constructEmbed(result) {
+      const embed = new MessageEmbed()
+        .setColor('#162951')
+        .setTitle('Sessional Dates')
+        .setURL(baseUrl)
+        .setDescription(`__${result.item.calendar}__`)
+        .addField(result.item.date, result.item.event)
+        .setFooter(`Confidence: ${parseFloat(1 - result.score).toFixed(2) * 100}%`);
+
+      return embed;
+    }
+
+    function search(response) {
       const $ = cheerio.load(response.data);
-      const title = $('h2').first().text();
       const tables = [];
 
       $('table')
@@ -56,23 +67,32 @@ module.exports = class Calendar extends Command {
         includeScore: true,
         ignoreLocation: true,
       });
-      const result = fuse.search(arg.search);
-      console.log(result)
-      if (!result.length) return;
-
-      const embed = new MessageEmbed()
-        .setColor('#162951')
-        .setTitle(title)
-        .setURL(baseUrl)
-        .setDescription(`__${result[0].item.calendar}__`)
-        .addField(result[0].item.date, result[0].item.event);
-
-      return embed;
+      return fuse.search(arg.search, { limit: 5 });
     }
 
     const response = await axios.get(baseUrl);
-    const embed = constructEmbed(response);
-    if (embed) return message.embed(embed);
-    message.react('❌');
+    const results = search(response);
+    const embeds = results.map((result) => constructEmbed(result));
+
+    if (embeds[0]) {
+      const embedMessage = await message.embed(embeds[0].setFooter(`${embeds[0].footer.text}  |  1/${embeds.length}`));
+      const pageTurn = ['◀️', '▶️'];
+      pageTurn.forEach((reaction) => embedMessage.react(reaction));
+      let page = 0;
+
+      const reactionCollector = embedMessage.createReactionCollector(
+        (reaction, user) => pageTurn.includes(reaction.emoji.name) && user === message.author,
+        { time: 60 * 5 * 1000 }, // 5 mins
+      );
+
+      reactionCollector.on('collect', (reaction, user) => {
+        reaction.users.remove(user);
+        if (reaction.emoji.name === '◀️') page = (page > 0) ? page - 1 : page;
+        if (reaction.emoji.name === '▶️') page = (page + 1 < embeds.length) ? page + 1 : page;
+        embedMessage.edit(embeds[page].setFooter(`Confidence: ${parseFloat(embeds[page].footer.text.substr(12)).toFixed(2)}%  |  ${page + 1}/${embeds.length}`));
+      });
+
+      reactionCollector.on('end', () => { if (!embedMessage.deleted) embedMessage.reactions.removeAll(); });
+    } else message.react('❌');
   }
 };
