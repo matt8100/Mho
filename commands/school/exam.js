@@ -38,13 +38,13 @@ module.exports = class Exam extends Command {
       const courseTitle = $(`strong:contains(${courseCode})`).text().replace(/\n\s+/g, '');
       const courseUrl = baseUrl + courseTitle;
       const pageTitle = $('#lblTitle').text().replace(/\s+/g, ' ');
-      const examDate = $(`strong:contains(${courseCode})`).closest('div').text()
+      const examDate = $(`strong:contains(${courseCode})`).parent().text()
         .split('Date: ')
         .pop()
         .split('Time:')
         .shift()
         .trim();
-      const examTime = $(`strong:contains(${courseCode})`).closest('div').text()
+      const examTime = $(`strong:contains(${courseCode})`).parent().text()
         .split('Date: ')
         .pop()
         .split('Time:')
@@ -63,7 +63,20 @@ module.exports = class Exam extends Command {
         );
 
       if (examDate) embed.fields[0].value = examDate;
-      if (examTime) embed.fields[1].value = examTime;
+      if (examTime) embed.fields[2].value = examTime;
+
+      const columns = ['Location', 'Students', 'Message'];
+      $(`strong:contains(${courseCode})`)
+        .parent()
+        .next('table')
+        .find('tr')
+        .get()
+        .slice(1)
+        .map((row) => $(row).find('td').get().map((cell) => $(cell).text().trim()))
+        .forEach((row) => row.forEach((value, index) => {
+          if (value) embed.addField(columns[index], value, true);
+          else embed.addField('\u200B', '\u200B', true);
+        }));
 
       return embed;
     }
