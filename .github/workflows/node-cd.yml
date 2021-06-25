@@ -5,7 +5,13 @@ name: Node Continous Deployment
 on:
   pull_request:
     branches: [ main ]
-    types: [ closed ] 
+    types: [ closed ]
+    paths-ignore:
+    - '*.*'
+    - '**.md'
+    - '*.json'
+    - .github/
+    - .vscode/
   workflow_dispatch:
 
 jobs:
