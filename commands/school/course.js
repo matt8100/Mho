@@ -35,7 +35,7 @@ module.exports = class Course extends Command {
 
     // Retrieves field text
     function getRelated($, fieldName) {
-      if (!($(`.field--name-field-${fieldName}`).length)) return false; // if element DNE return
+      if (!($(`.field--name-field-${fieldName}`).length)) return; // if element DNE return
       const courseCodes = $(`.field--name-field-${fieldName} > div`).slice(1).map(function courseCodes() { return $(this).text(); }).get()[0];
       const courseLinks = $(`.field--name-field-${fieldName} > div a`).map(function courseLinks() { return $(this).attr('href'); }).get();
       const splitCodes = courseCodes.split(/[ /]/); // delimit by whitespace and slash
@@ -45,11 +45,10 @@ module.exports = class Course extends Command {
 
       // Populate return string
       let courseText = '';
-      for (let i = 0; i < splitCodes.length; i += 1) {
-        courseText += `[${splitCodes[i]}](${baseUrl + courseLinks[i]})`;
-        if (splitCodes[i].slice(splitCodes[i].length - 1) !== ';' && i < splitCodes.length - 1) courseText += '/';
-        else courseText += ' ';
-      }
+      splitCodes.forEach((code, index, array) => {
+        courseText += `[${code}](${baseUrl + courseLinks[index]})`;
+        courseText += (code.slice(code.length - 1) !== ';' && index < array.length - 1) ? '/' : ' ';
+      });
 
       return courseText;
     }
@@ -68,15 +67,12 @@ module.exports = class Course extends Command {
         .setDescription(courseDescription);
 
       // fields that may or may not be there
-      const coursePrereqs = getRelated($, 'prerequisite');
-      const courseCoreq = getRelated($, 'corequisite');
-      const coursePrep = getRelated($, 'recommended-preparation');
-      const courseExclusions = getRelated($, 'exclusion');
-
-      if (coursePrereqs) embed.addField('Prerequisite', coursePrereqs);
-      if (courseCoreq) embed.addField('Corequisite', courseCoreq);
-      if (coursePrep) embed.addField('Recommended Preparation', coursePrep);
-      if (courseExclusions) embed.addField('Exclusions', courseExclusions);
+      const fields = ['prerequisite', 'corequisite', 'recommended-preparation', 'exclusion'];
+      fields.forEach((field) => {
+        const fieldName = field.replace('-', ' ').replace(/\w\S*/g, (word) => (word.replace(/^\w/, (char) => char.toUpperCase())));
+        const fieldText = getRelated($, field);
+        if (fieldText) embed.addField(fieldName, fieldText);
+      });
 
       return embed;
     }
