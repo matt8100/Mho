@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "eslint": "7.29.0",
-    "eslint-config-airbnb-base": "^14.2.1"
+    "eslint-config-airbnb-base": "14.2.1"
   },
   "name": "mho",
   "description": "A Discord bot for the UofT ECE 2T4 server.",
