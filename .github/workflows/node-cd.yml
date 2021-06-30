@@ -29,5 +29,5 @@ jobs:
         script: |
           cd ~/Mho
           git pull origin main
-          npm ci --production
+          npm install --production --package-lock false
           pm2 restart Mho
