@@ -1,8 +1,9 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const cheerio = require('cheerio');
-const axios = require('axios');
 const Fuse = require('fuse.js');
+
+const axios = require('../../config/axios');
 
 module.exports = class Calendar extends Command {
   constructor(client) {

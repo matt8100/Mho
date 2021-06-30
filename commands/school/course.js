@@ -1,7 +1,8 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const cheerio = require('cheerio');
-const axios = require('axios');
+
+const axios = require('../../config/axios');
 
 module.exports = class Course extends Command {
   constructor(client) {
@@ -33,6 +34,12 @@ module.exports = class Course extends Command {
     const h1Url = `${baseUrl}/course/${courseCode}h1`;
     const y1Url = `${baseUrl}/course/${courseCode}y1`;
 
+    // Get final redirect URL from response headers
+    function getResponseUrl(response) {
+      const { link } = response.headers;
+      return link.substring(link.indexOf('<') + 1, link.indexOf('>'));
+    }
+
     // Retrieves field text
     function getRelated($, fieldName) {
       if (!($(`.field--name-field-${fieldName}`).length)) return; // if element DNE return
@@ -57,7 +64,7 @@ module.exports = class Course extends Command {
       const $ = cheerio.load(response.data);
 
       const courseTitle = $('h1').text();
-      const courseUrl = response.request.res.responseUrl;
+      const courseUrl = getResponseUrl(response);
       const courseDescription = $('p').text();
 
       const embed = new MessageEmbed()
@@ -79,14 +86,13 @@ module.exports = class Course extends Command {
 
     async function fetchHTML(url) {
       const response = await axios.get(url);
-      if (response.request.res.responseUrl !== url) return;
+      if (getResponseUrl(response) !== url) return;
       return response;
     }
 
     // courses are either h1 or y1
-    const response = await fetchHTML(h1Url) ? await fetchHTML(h1Url) : await fetchHTML(y1Url);
-    const embed = constructEmbed(response);
-    if (embed) return message.embed(embed);
-    return message.react('❌');
+    const response = await fetchHTML(h1Url) || await fetchHTML(y1Url);
+    if (response) message.embed(constructEmbed(response));
+    else message.react('❌');
   }
 };
