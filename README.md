@@ -3,11 +3,13 @@
 
 # Mho
 
-Requires [Node.js 14.0.0 or newer](https://nodejs.org/en/)
+Requires:
+- [Node.js 14.0.0 or newer](https://nodejs.org/en/)
+- [Redis](https://redis.io/) for caching
 
 ## Setup
 
-Set `BOT_TOKEN` in a `.env` file within the root directory.
+Set `BOT_TOKEN` in a `.env` file within the root directory an.
 
 ```
 npm install
