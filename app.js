@@ -10,7 +10,7 @@ const client = new Commando.Client({
 });
 
 // SQLite database
-client.db = require('./config/database');
+client.db = require('./config/sqlite');
 
 client.setProvider(
   new Commando.SyncSQLiteProvider(client.db),
