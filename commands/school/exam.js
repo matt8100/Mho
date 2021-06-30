@@ -1,7 +1,8 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const cheerio = require('cheerio');
-const axios = require('axios');
+
+const axios = require('../../config/axios');
 
 module.exports = class Exam extends Command {
   constructor(client) {
