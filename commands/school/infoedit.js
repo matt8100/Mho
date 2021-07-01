@@ -51,9 +51,8 @@ module.exports = class InfoEdit extends Command {
           stmt.run();
           message.react('✅');
         } catch (err) {
-          console.log(err.message);
-          if (err.message === 'Entry already exists!') return message.say(err.message);
-          message.react('❌');
+          if (err.message === 'Entry already exists!') message.say(err.message);
+          else message.react('❌');
         }
       })();
     }
@@ -95,7 +94,6 @@ module.exports = class InfoEdit extends Command {
       case 'delete':
         del();
         return message;
-      default:
     }
   }
 };

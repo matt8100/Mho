@@ -35,29 +35,33 @@ module.exports = class Info extends Command {
       return embed;
     }
 
-    // For listing all existing keys
-    if (arg.key === 'list') {
+    function list() {
       const stmt = client.db.prepare(`SELECT key FROM INFO WHERE guild = '${guild}'`);
       client.db.transaction(() => {
         try {
           const keys = stmt.all(); // Retrieves array of single-element JSONs
           for (let i = 0; i < keys.length; i += 1) keys[i] = keys[i].key;
-          return message.say(keys.sort().join(', '));
-        } catch (err) {
-          message.react('❌');
-        }
-      })();
-    } else { // Standard run
-      const stmt = client.db.prepare(`SELECT * FROM info WHERE guild = '${guild}' AND key = lower('${arg.key}')`);
-      client.db.transaction(() => {
-        try {
-          const info = stmt.get();
-          if (info) return message.say(constructEmbed(info.value));
-          message.react('❌');
+          message.say(keys.sort().join(', '));
         } catch (err) {
           message.react('❌');
         }
       })();
     }
+
+    function get() {
+      const stmt = client.db.prepare(`SELECT * FROM info WHERE guild = '${guild}' AND key = lower('${arg.key}')`);
+      client.db.transaction(() => {
+        try {
+          const info = stmt.get();
+          if (info) message.embed(constructEmbed(info.value));
+          else message.react('❌');
+        } catch (err) {
+          message.react('❌');
+        }
+      })();
+    }
+
+    if (arg.key === 'list') list(); // List all keys
+    else get(); // Standard run
   }
 };

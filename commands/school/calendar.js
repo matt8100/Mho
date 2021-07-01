@@ -33,13 +33,14 @@ module.exports = class Calendar extends Command {
     const baseUrl = 'https://engineering.calendar.utoronto.ca/sessional-dates';
 
     function constructEmbed(result) {
+      const confidence = parseFloat(1 - result.score).toFixed(2) * 100;
       const embed = new MessageEmbed()
         .setColor('#162951')
         .setTitle('Sessional Dates')
         .setURL(baseUrl)
         .setDescription(`__${result.item.calendar}__`)
         .addField(result.item.date, result.item.event)
-        .setFooter(`Confidence: ${parseFloat(1 - result.score).toFixed(2) * 100}%`);
+        .setFooter(`Confidence: ${confidence}%`);
 
       return embed;
     }
@@ -77,10 +78,11 @@ module.exports = class Calendar extends Command {
 
     if (embeds[0]) {
       const embedMessage = await message.embed(embeds[0].setFooter(`${embeds[0].footer.text}  |  1/${embeds.length}`));
+
       const pageTurn = ['◀️', '▶️'];
       pageTurn.forEach((reaction) => embedMessage.react(reaction));
-      let page = 0;
 
+      let page = 0;
       const reactionCollector = embedMessage.createReactionCollector(
         (reaction, user) => pageTurn.includes(reaction.emoji.name) && user === message.author,
         { time: 60 * 5 * 1000 }, // 5 mins
@@ -90,7 +92,9 @@ module.exports = class Calendar extends Command {
         reaction.users.remove(user);
         if (reaction.emoji.name === '◀️') page = (page > 0) ? page - 1 : page;
         if (reaction.emoji.name === '▶️') page = (page + 1 < embeds.length) ? page + 1 : page;
-        embedMessage.edit(embeds[page].setFooter(`Confidence: ${parseFloat(embeds[page].footer.text.substr(12)).toFixed(2)}%  |  ${page + 1}/${embeds.length}`));
+
+        const confidence = parseFloat(embeds[page].footer.text.substr(12)).toFixed(2);
+        embedMessage.edit(embeds[page].setFooter(`Confidence: ${confidence}%  |  ${page + 1}/${embeds.length}`));
       });
 
       reactionCollector.on('end', () => { if (!embedMessage.deleted) embedMessage.reactions.removeAll(); });

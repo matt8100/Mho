@@ -1,10 +1,14 @@
 module.exports = {
   env: {
-    browser: true,
+    node: true,
     es2021: true,
   },
+  plugins: [
+    'node',
+  ],
   extends: [
     'airbnb-base',
+    'plugin:node/recommended',
   ],
   parserOptions: {
     ecmaVersion: 12,
