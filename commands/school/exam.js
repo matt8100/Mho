@@ -23,7 +23,7 @@ module.exports = class Exam extends Command {
       ],
       throttling: {
         usages: 2,
-        duration: 5,
+        duration: 10,
       },
     });
   }

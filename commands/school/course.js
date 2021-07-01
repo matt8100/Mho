@@ -22,8 +22,8 @@ module.exports = class Course extends Command {
         },
       ],
       throttling: {
-        usages: 3,
-        duration: 5,
+        usages: 2,
+        duration: 10,
       },
     });
   }

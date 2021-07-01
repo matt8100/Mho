@@ -12,7 +12,7 @@ module.exports = class InfoEdit extends Command {
       userPermissions: ['MANAGE_MESSAGES'],
       throttling: {
         usages: 2,
-        duration: 5,
+        duration: 10,
       },
       args: [
         {

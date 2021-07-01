@@ -12,7 +12,7 @@ module.exports = class Info extends Command {
       guildOnly: false,
       throttling: {
         usages: 2,
-        duration: 5,
+        duration: 10,
       },
       args: [
         {
