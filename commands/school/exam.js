@@ -82,7 +82,7 @@ module.exports = class Exam extends Command {
       return embed;
     }
 
-    const response = await axios.get(scheduleUrl);
+    const response = await axios.get(scheduleUrl, { cache: { maxAge: 60 * 60 * 1000 } }); // 1 hr
     const embed = constructEmbed(response);
     if (embed.url !== baseUrl) message.embed(embed);
     else message.react('❌');
