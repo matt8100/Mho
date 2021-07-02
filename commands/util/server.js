@@ -50,15 +50,15 @@ module.exports = class Server extends Command {
       case 'get': {
         if (!arg.key) return message.say('Specify key!');
         const value = await provider.get(guild, arg.key);
-        if (!value) message.react('❌');
-        else message.say(`${arg.key}: ${value}`);
+        if (value) message.say(`${arg.key}: ${value}`);
+        else message.react('❌');
         break;
       }
       case 'remove': {
         if (!arg.key) return message.say('Specify key!');
         const oldValue = await provider.remove(guild, arg.key);
-        if (!oldValue) message.react('❌');
-        else message.react('✅');
+        if (oldValue) message.react('✅');
+        else message.react('❌');
         break;
       }
       case 'set': {
