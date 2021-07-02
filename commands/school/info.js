@@ -9,7 +9,7 @@ module.exports = class Info extends Command {
       group: 'school',
       memberName: 'info',
       description: 'Lookup info about a topic. Use `info list` for a list of topics',
-      guildOnly: false,
+      guildOnly: true,
       throttling: {
         usages: 2,
         duration: 10,
@@ -19,6 +19,7 @@ module.exports = class Info extends Command {
           key: 'key',
           prompt: 'What is the key of the info you are looking for?',
           type: 'string',
+          default: '',
         },
       ],
     });
@@ -41,7 +42,8 @@ module.exports = class Info extends Command {
         try {
           const keys = stmt.all(); // Retrieves array of single-element JSONs
           for (let i = 0; i < keys.length; i += 1) keys[i] = keys[i].key;
-          message.say(keys.sort().join(', '));
+          if (keys[0]) message.say(keys.sort().join(', '));
+          else message.say('There is no info to show on this server!');
         } catch (err) {
           message.react('❌');
         }
@@ -61,7 +63,7 @@ module.exports = class Info extends Command {
       })();
     }
 
-    if (arg.key === 'list') list(); // List all keys
-    else get(); // Standard run
+    if (arg.key) get(); // Standard run
+    else list(); // List all keys
   }
 };
