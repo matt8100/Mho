@@ -11,6 +11,7 @@
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "matchCurrentVersion": "!/^0/",
+      "requiredStatusChecks": null,
       "automerge": true
     }
   ]
