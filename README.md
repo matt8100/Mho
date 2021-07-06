@@ -13,13 +13,11 @@ This bot uses [Discord.js](https://discord.js.org/#/) and the [Commando framewor
 ## Commands
 
 ```shell
-building|b {name|code} query
 calendar|cal query
 course|c course-code
 exam|e course-code
 info|i [key] # Providing no key lists all available keys
 infoedit|ie {add|edit|delete} key [value]
-textbook|tb {title|courses} query
 ```
 
 ## Setup
