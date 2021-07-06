@@ -46,9 +46,9 @@ module.exports = class InfoEdit extends Command {
     const guild = message.guild.id;
 
     function add() {
-      if (!arg.value) return message.say('No key specified!');
+      if (!arg.key) return message.say('No key specified!');
       if (!arg.value) return message.say('No text specified!');
-      const stmt = client.db.prepare(`INSERT INTO info (guild, key, value) VALUES (${guild}, lower('${arg.key}'), '${arg.value}')`);
+      const stmt = client.db.prepare(`INSERT INTO info (guild, key, value) VALUES (${guild}, '${arg.key}', '${arg.value}')`);
       client.db.transaction(() => {
         try {
           stmt.run();
@@ -61,9 +61,9 @@ module.exports = class InfoEdit extends Command {
     }
 
     function edit() {
-      if (!arg.value) return message.say('No key specified!');
+      if (!arg.key) return message.say('No key specified!');
       if (!arg.value) return message.say('No text specified!');
-      const stmt = client.db.prepare(`UPDATE info SET value = '${arg.value}' WHERE guild = '${guild}' AND key = lower('${arg.key}')`);
+      const stmt = client.db.prepare(`UPDATE info SET value = '${arg.value}' WHERE guild = '${guild}' AND key = l'${arg.key}' COLLATE NOCASE`);
       client.db.transaction(() => {
         try {
           const info = stmt.run();
@@ -76,8 +76,8 @@ module.exports = class InfoEdit extends Command {
     }
 
     function del() {
-      if (!arg.value) return message.say('No key specified!');
-      const stmt = client.db.prepare(`DELETE FROM info WHERE guild = '${guild}' AND key = lower('${arg.key}')`);
+      if (!arg.key) return message.say('No key specified!');
+      const stmt = client.db.prepare(`DELETE FROM info WHERE guild = '${guild}' AND key = '${arg.key}' COLLATE NOCASE`);
       client.db.transaction(() => {
         try {
           const info = stmt.run();

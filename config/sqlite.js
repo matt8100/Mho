@@ -12,6 +12,8 @@ db.prepare(
     );`,
 ).run();
 
+// Trigger for limiting number of info key-value pairs saved per server
+db.prepare('DROP TRIGGER IF EXISTS server_limit;').run();
 db.prepare(
   `CREATE TRIGGER IF NOT EXISTS server_limit
       BEFORE INSERT ON info
@@ -25,13 +27,15 @@ db.prepare(
     END;`,
 ).run();
 
+// Trigger for replicating UNIQUE constraint, but per-server insteadd of per-column
+db.prepare('DROP TRIGGER IF EXISTS per_server_unique_key;').run();
 db.prepare(
   `CREATE TRIGGER IF NOT EXISTS per_server_unique_key
       BEFORE INSERT ON info
     BEGIN
       SELECT
         CASE
-          WHEN ((SELECT COUNT(key) FROM info WHERE guild = NEW.guild AND key = NEW.key) > 0)
+          WHEN ((SELECT COUNT(key) FROM info WHERE guild = NEW.guild AND key = NEW.key COLLATE NOCASE) > 0)
           THEN
             RAISE (ABORT, 'Entry already exists!')
         END;
