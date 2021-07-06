@@ -40,7 +40,7 @@ module.exports = class Calendar extends Command {
         .setURL(baseUrl)
         .setDescription(`__${result.item.calendar}__`)
         .addField(result.item.date, result.item.event)
-        .setFooter(`Confidence: ${confidence}%`);
+        .setFooter(`Confidence: ${confidence.toFixed(2)}%`);
 
       return embed;
     }
