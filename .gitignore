@@ -1,6 +1,9 @@
 # SQLite database file
 *.db
 
+# Redis dump
+*.rdb
+
 # Logs
 logs
 *.log

@@ -22,8 +22,8 @@ module.exports = class Course extends Command {
         },
       ],
       throttling: {
-        usages: 3,
-        duration: 5,
+        usages: 2,
+        duration: 10,
       },
     });
   }
@@ -45,7 +45,7 @@ module.exports = class Course extends Command {
       if (!($(`.field--name-field-${fieldName}`).length)) return; // if element DNE return
       const courseCodes = $(`.field--name-field-${fieldName} > div`).slice(1).map(function courseCodes() { return $(this).text(); }).get()[0];
       const courseLinks = $(`.field--name-field-${fieldName} > div a`).map(function courseLinks() { return $(this).attr('href'); }).get();
-      const splitCodes = courseCodes.split(/[ /]/); // delimit by whitespace and slash
+      const splitCodes = courseCodes.split(/[ /,]/).filter((code) => code && code.length > 2); // delimit by whitespace, slash, and comma; filter out empty and short strings
 
       // If last char of text is not a number, return as string.
       if (isNaN(courseCodes.slice(courseCodes.length - 1))) return courseCodes;
