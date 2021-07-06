@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "axios": "^0.21.1",
     "axios-cache-adapter": "^2.7.3",
     "better-sqlite3": "^7.4.0",
     "cheerio": "*",
