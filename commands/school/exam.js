@@ -11,7 +11,7 @@ module.exports = class Exam extends Command {
       aliases: ['e'],
       group: 'school',
       memberName: 'exam',
-      description: 'Lookup final exam times on the exam schedule',
+      description: 'Lookup final exam times on the exam schedule by course code',
       guildOnly: false,
       args: [
         {

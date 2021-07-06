@@ -12,7 +12,7 @@ module.exports = class Calendar extends Command {
       aliases: ['cal', 'sessional'],
       group: 'school',
       memberName: 'calendar',
-      description: 'Search for sessional dates',
+      description: 'Search for sessional dates with a search term.',
       guildOnly: false,
       throttling: {
         usages: 2,

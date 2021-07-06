@@ -8,7 +8,7 @@ module.exports = class Bot extends Command {
       name: 'bot',
       group: 'util',
       memberName: 'bot',
-      description: 'Bot information',
+      description: 'Bot information. Options are `info`, `issue`, `donate`.',
       guildOnly: false,
       throttling: {
         usages: 2,

@@ -9,7 +9,7 @@ module.exports = class InfoEdit extends Command {
       aliases: ['ie'],
       group: 'school',
       memberName: 'infoedit',
-      description: 'Editing info for the info command',
+      description: 'Editing info for the info command. Options are `add`, `edit`, `delete`, `load`, or `destroy`, with key and value arguments required accordingly.',
       guildOnly: true,
       userPermissions: ['MANAGE_MESSAGES'],
       throttling: {
