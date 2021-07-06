@@ -12,6 +12,7 @@ module.exports = class Building extends Command {
       memberName: 'building',
       description: 'Lookup building directions by code or name',
       guildOnly: false,
+      hidden: true,
       throttling: {
         usages: 2,
         duration: 10,

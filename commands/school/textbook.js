@@ -12,6 +12,7 @@ module.exports = class Textbook extends Command {
       memberName: 'textbook',
       description: 'Search for a textbook by title in the Bookstore',
       guildOnly: false,
+      hidden: true,
       throttling: {
         usages: 2,
         duration: 10,
