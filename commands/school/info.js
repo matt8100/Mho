@@ -29,9 +29,10 @@ module.exports = class Info extends Command {
     const { client } = this;
     const guild = message.guild.id;
 
-    function constructEmbed(value) {
+    function constructEmbed(title, value) {
       const embed = new MessageEmbed()
         .setColor('#162951')
+        .setTitle(title)
         .setDescription(value);
       return embed;
     }
@@ -51,11 +52,11 @@ module.exports = class Info extends Command {
     }
 
     function get() {
-      const stmt = client.db.prepare(`SELECT * FROM info WHERE guild = '${guild}' AND key = lower('${arg.key}')`);
+      const stmt = client.db.prepare(`SELECT key, value FROM info WHERE guild = '${guild}' AND key = '${arg.key}' COLLATE NOCASE`);
       client.db.transaction(() => {
         try {
           const info = stmt.get();
-          if (info) message.embed(constructEmbed(info.value));
+          if (info) message.embed(constructEmbed(info.key, info.value));
           else message.react('❌');
         } catch (err) {
           message.react('❌');
