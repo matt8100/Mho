@@ -60,7 +60,6 @@ module.exports = class Timetable extends Command {
           const {
             day, start, end, location, professors,
           } = meeting;
-          console.log(sectionCode, day);
           embed.addFields(
             { name: 'Time', value: `${day} ${start} - ${end}`, inline: true },
             { name: 'Location', value: location || 'N/A', inline: true },
@@ -120,11 +119,11 @@ module.exports = class Timetable extends Command {
 
       // fuzzy search
       const fuse = new Fuse(timeTables, {
-        keys: ['code', 'sections.professors'],
+        keys: ['code', 'sections.meetings.professors'],
         includeScore: true,
         ignoreLocation: true,
       });
-      return fuse.search(arg.query, { limit: 1 });
+      return fuse.search(arg.query, { limit: 5 });
     }
 
     const { data } = await axios.get(baseUrl);
