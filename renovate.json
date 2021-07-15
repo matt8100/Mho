@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "matchCurrentVersion": "!/^0/",
+      "requiredStatusChecks": null,
+      "automerge": true
+    }
+  ]
+}
