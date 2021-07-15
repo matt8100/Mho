@@ -5,16 +5,26 @@
     "dotenv": "^10.0.0"
   },
   "devDependencies": {
-    "eslint": "7.30.0",
-    "eslint-config-airbnb-base": "14.2.1",
-    "eslint-plugin-import": "2.23.4",
-    "eslint-plugin-node": "11.1.0"
+    "@tsconfig/node14": "^1.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "11.1.0",
+    "typescript": "^4.3.5"
   },
   "name": "mho",
   "description": "A Discord bot for the UofT ECE 2T4 server.",
   "version": "1.0.0",
-  "main": "app.js",
+  "type": "module",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "main": "dist/app.js",
   "scripts": {
+    "start": "tsc && node .",
+    "nodemon": "tsc && nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

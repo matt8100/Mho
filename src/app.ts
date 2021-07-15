@@ -1,5 +1,7 @@
-require('dotenv').config();
-const { SapphireClient } = require('@sapphire/framework');
+import { config } from 'dotenv';
+import { SapphireClient } from '@sapphire/framework';
+
+config();
 
 const client = new SapphireClient({
   intents: [
@@ -13,8 +15,8 @@ const client = new SapphireClient({
 });
 
 client.on('ready', () => {
-  client.user.setActivity('commands', { type: 'LISTENING' });
-  console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
+  client.user!.setActivity('commands', { type: 'LISTENING' });
+  console.log(`Logged in as ${client.user!.tag}! (${client.user!.id})`);
 });
 
 client.login(process.env.BOT_TOKEN);
