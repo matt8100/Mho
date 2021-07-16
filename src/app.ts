@@ -14,9 +14,4 @@ const client = new SapphireClient({
   defaultPrefix: '&',
 });
 
-client.on('ready', () => {
-  client.user!.setActivity('commands', { type: 'LISTENING' });
-  console.log(`Logged in as ${client.user!.tag}! (${client.user!.id})`);
-});
-
 client.login(process.env.BOT_TOKEN);
