@@ -17,6 +17,7 @@
     ],
     "rules": {
         "no-console": "off",
+        "class-methods-use-this": "off",
         "func-names": ["error", "as-needed"],
         "default-case": "off"
     }
