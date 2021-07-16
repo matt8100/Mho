@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@sapphire/decorators": "^2.1.5",
     "@sapphire/framework": "^2.0.0-next.695cca2c.0",
     "@sapphire/plugin-logger": "^1.0.13",
     "@sapphire/type": "^2.0.11",
@@ -19,7 +20,7 @@
   },
   "name": "mho",
   "description": "A Discord bot for the UofT ECE 2T4 server.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "engines": {
     "node": ">=14.0.0"
@@ -27,7 +28,7 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "tsc && node .",
-    "nodemon": "tsc && nodemon ."
+    "dev": "nodemon -w src/** -e ts -x \"npm start\""
   },
   "repository": {
     "type": "git",

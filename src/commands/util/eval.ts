@@ -1,21 +1,20 @@
-import { Args, Command, PieceContext } from '@sapphire/framework';
+import { Args, Command, CommandOptions } from '@sapphire/framework';
+import { ApplyOptions } from '@sapphire/decorators';
 import { Type } from '@sapphire/type';
 import { codeBlock, isThenable } from '@sapphire/utilities';
 import type { Message } from 'discord.js';
 import { inspect } from 'util';
 
-export default class extends Command {
-  constructor(context: PieceContext) {
-    super(context, {
-      aliases: ['ev'],
-      description: 'Evals any JavaScript code',
-      quotes: [],
-      preconditions: ['OwnerOnly'],
-      flags: ['async', 'hidden', 'showHidden', 'silent', 's'],
-      options: ['depth'],
-    });
-  }
+@ApplyOptions<CommandOptions>({
+  aliases: ['ev'],
+  description: 'Evals any JavaScript code',
+  quotes: [],
+  preconditions: ['OwnerOnly'],
+  flags: ['async', 'hidden', 'showHidden', 'silent', 's'],
+  options: ['depth'],
+})
 
+export default class extends Command {
   public async run(message: Message, args: Args) {
     const code = await args.rest('string');
 
@@ -41,12 +40,13 @@ export default class extends Command {
   }
 
   private async eval(code: string, flags: { async: boolean; depth: number; showHidden: boolean }) {
-    if (flags.async) code = `(async () => {\n${code}\n})();`;
+    let runCode = code;
+    if (flags.async) runCode = `(async () => {\n${code}\n})();`;
     let success = true;
     let result = null;
     try {
       // eslint-disable-next-line no-eval
-      result = eval(code);
+      result = eval(runCode);
     } catch (error) {
       if (error && error.stack) {
         this.container.client.logger.error(error);
