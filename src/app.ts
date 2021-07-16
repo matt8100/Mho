@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
 import { SapphireClient } from '@sapphire/framework';
+import '@sapphire/plugin-logger/register';
 
 config();
 
