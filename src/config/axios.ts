@@ -1,7 +1,7 @@
-import adapter from 'axios-cache-adapter'
+import adapter from 'axios-cache-adapter';
 import redisClient from './redis.js';
 
-const { setup, RedisStore} = adapter;
+const { setup, RedisStore } = adapter;
 
 const store = new RedisStore(redisClient);
 const api = setup({
