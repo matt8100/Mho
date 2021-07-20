@@ -9,8 +9,7 @@
     "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.10",
     "discord.js": "^13.0.0-dev.4206e35.1626307444",
-    "dotenv": "^10.0.0",
-    "rimraf": "^3.0.2"
+    "dotenv": "^10.0.0"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.1",
@@ -32,6 +31,7 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "rmdir /s /q dist && tsc && node .",
+    "build": "tsc -b src",
     "dev": "nodemon -w src/** -e ts -x \"npm start\""
   },
   "repository": {

@@ -1,22 +1,17 @@
-# Connects to server by SSH, pull changes, install dependencies and restart
+# Starts bot on production server
 
-name: Node Continous Deployment
+name: Continuous Deployment
 
 on:
-  pull_request:
-    branches: [ main ]
-    types: [ closed ]
-    paths-ignore:
-    - '.*'
-    - '**.md'
-    - '*.json'
-    - .github/
-    - .vscode/
+  workflow_run:
+    workflows: [ "Continuous Delivery" ]
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
