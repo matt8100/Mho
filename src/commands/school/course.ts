@@ -1,9 +1,11 @@
 import { Args, Command } from '@sapphire/framework';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Message, MessageEmbed } from 'discord.js';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import cheerio, { CheerioAPI } from 'cheerio';
 import TurndownService from 'turndown';
+
+import axios from '../../config/axios.js';
 
 @ApplyOptions({
   name: 'course',

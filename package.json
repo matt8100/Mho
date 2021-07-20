@@ -7,13 +7,16 @@
     "@sapphire/type": "^2.0.11",
     "@sapphire/utilities": "^1.7.0",
     "axios": "^0.21.1",
+    "axios-cache-adapter": "^2.7.3",
     "cheerio": "^1.0.0-rc.10",
     "discord.js": "^13.0.0-dev.02f55f0.1626782659",
     "dotenv": "^10.0.0",
+    "redis": "^3.1.2",
     "turndown": "^7.1.1"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.1",
+    "@types/redis": "^2.8.31",
     "@types/turndown": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
