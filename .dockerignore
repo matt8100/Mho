@@ -1,0 +1,14 @@
+## Dev Build
+dist/
+
+## Dependency directories
+node_modules/
+
+## Dotfiles
+.*
+
+## Misc
+LICENSE
+*.md
+renovate.json
+*.db

@@ -37,7 +37,7 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "rmdir /s /q dist && tsc && node .",
-    "build": "tsc -b src",
+    "build": "tsc -b",
     "dev": "nodemon -w src/** -e ts -x \"npm start\""
   },
   "repository": {
