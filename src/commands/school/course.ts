@@ -49,7 +49,6 @@ export default class extends Command {
          && node.getAttribute('href')
           );
         },
-
         replacement(content, node) {
           const href = node.getAttribute('href');
           return `[${content}](${baseUrl}/${href})`;
@@ -57,8 +56,7 @@ export default class extends Command {
       });
 
       const html = $(`.field--name-field-${fieldName}`).children('.field__item').html();
-      const markdown = turndownService.turndown(html);
-      return markdown;
+      return turndownService.turndown(html);
     }
 
     function constructEmbed(response: AxiosResponse): MessageEmbed {
