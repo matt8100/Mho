@@ -60,5 +60,27 @@
 			""
 		],
 		"description": "Sapphire listener template"
+	},
+	"Slash command template": {
+		"prefix": "slashCommand",
+		"body": [
+			"import { CommandInteraction } from 'discord.js';",
+			"",
+			"export default {",
+			"  name: '${TM_FILENAME_BASE}',",
+			"  description: '$1',",
+			"  options: [{",
+			"    name: 'input',",
+			"    type: 'STRING',",
+			"    description: '',",
+			"    required: false,",
+			"  }],",
+			"  async execute(interaction: CommandInteraction): Promise<void> {",
+			"    $0",
+			"  },",
+			"};",
+			""
+		],
+		"description": "Slash command template"
 	}
 }
