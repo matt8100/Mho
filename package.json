@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
     "@sapphire/decorators": "^2.1.5",
     "@sapphire/discord.js-utilities": "^3.0.0-next.600390f4.0",
     "@sapphire/framework": "^2.0.0-next.695cca2c.0",
@@ -9,6 +10,7 @@
     "axios": "^0.21.1",
     "axios-cache-adapter": "^2.7.3",
     "cheerio": "^1.0.0-rc.10",
+    "discord-api-types": "^0.22.0",
     "discord.js": "^13.0.0-dev.02f55f0.1626782659",
     "dotenv": "^10.0.0",
     "fuse.js": "^6.4.6",
