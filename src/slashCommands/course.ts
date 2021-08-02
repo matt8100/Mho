@@ -1,25 +1,21 @@
-import { Args, Command } from '@sapphire/framework';
-import { ApplyOptions } from '@sapphire/decorators';
-import { Message, MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { AxiosResponse } from 'axios';
 import cheerio, { CheerioAPI } from 'cheerio';
 import TurndownService from 'turndown';
 
-import axios from '../../config/axios.js';
-import client from '../../app.js';
+import axios from '../config/axios.js';
 
-@ApplyOptions({
+export default {
   name: 'course',
-  aliases: ['c'],
-  description: 'Lookup a course by course code.',
-  detailedDescription: '',
-  cooldownLimit: 2,
-  cooldownDelay: 10,
-})
-
-export default class extends Command {
-  public async run(message: Message, args: Args) {
-    const courseCode = await args.pick('string').catch(() => message.reply('You must specify a course code!'));
+  description: 'Lookup a course by course code',
+  options: [{
+    name: 'course_code',
+    type: 'STRING',
+    description: 'The course code you are looking up.',
+    required: true,
+  }],
+  async execute(interaction: CommandInteraction): Promise<void> {
+    const courseCode = interaction.options.getString('course_code');
     const baseUrl = 'https://engineering.calendar.utoronto.ca';
     const h1Url = `${baseUrl}/course/${courseCode}h1`;
     const y1Url = `${baseUrl}/course/${courseCode}y1`;
@@ -32,7 +28,6 @@ export default class extends Command {
 
     async function fetchHTML(url: string): Promise<AxiosResponse<unknown>> {
       const response = await axios.get(url);
-      client.logger.debug('test');
       // If redirected, course does not exist
       if (getResponseUrl(response) !== url) return Promise.reject();
       return response;
@@ -86,9 +81,8 @@ export default class extends Command {
 
     // courses are either h1 or y1
     const response = await fetchHTML(h1Url) || await fetchHTML(y1Url);
-    client.logger.debug(response);
     const embed = constructEmbed(response);
-    if (response) message.channel.send({ embeds: [embed] });
-    else message.react('❌');
-  }
-}
+    if (response) interaction.reply({ embeds: [embed] });
+    else interaction.reply({ content: 'No such course found!', ephemeral: true });
+  },
+};

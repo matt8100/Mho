@@ -10,12 +10,10 @@ export default async (client: MhoClient): Promise<void> => {
     // eslint-disable-next-line node/no-unsupported-features/es-syntax
     const command = await import(new URL(file, dirPath.href).href);
     client.slashCommands.set(command.default.name, command.default);
-    client.logger.info('test');
   }));
 
   // slash command deployment
   const commands = client.slashCommands.map(({ execute, ...data }) => data);
-  client.logger.info(commands[0]);
   try {
     await client.guilds.cache.get('285949459316080650')?.commands.set(commands);
     client.logger.info('Reloaded application (/) commands.');

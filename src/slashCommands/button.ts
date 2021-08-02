@@ -2,8 +2,8 @@ import {
   CommandInteraction, MessageActionRow, MessageButton, MessageComponentInteraction,
 } from 'discord.js';
 
-const command = {
-  name: 'test',
+export default {
+  name: 'button',
   description: 'This makes a button!',
   options: [{
     name: 'input',
@@ -31,5 +31,3 @@ const command = {
     });
   },
 };
-
-export default command;
