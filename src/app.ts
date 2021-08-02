@@ -1,10 +1,12 @@
 import { config } from 'dotenv';
-import { SapphireClient } from '@sapphire/framework';
 import '@sapphire/plugin-logger/register';
+
+import MhoClient from './lib/MhoClient.js';
+import slashCommandHandler from './lib/slashCommands.js';
 
 config();
 
-const client = new SapphireClient({
+const client = new MhoClient({
   intents: [
     'GUILDS',
     'GUILD_MESSAGES',
@@ -15,4 +17,8 @@ const client = new SapphireClient({
   defaultPrefix: '&',
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN).then(() => {
+  slashCommandHandler(client);
+});
+
+export default client;
