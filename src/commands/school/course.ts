@@ -6,7 +6,6 @@ import cheerio, { CheerioAPI } from 'cheerio';
 import TurndownService from 'turndown';
 
 import axios from '../../config/axios.js';
-import client from '../../app.js';
 
 @ApplyOptions({
   name: 'course',
@@ -28,14 +27,6 @@ export default class extends Command {
     function getResponseUrl(response: AxiosResponse): string {
       const { link } = response.headers;
       return link.substring(link.indexOf('<') + 1, link.indexOf('>'));
-    }
-
-    async function fetchHTML(url: string): Promise<AxiosResponse<unknown>> {
-      const response = await axios.get(url);
-      client.logger.debug('test');
-      // If redirected, course does not exist
-      if (getResponseUrl(response) !== url) return Promise.reject();
-      return response;
     }
 
     // Retrieves field text
@@ -85,10 +76,12 @@ export default class extends Command {
     }
 
     // courses are either h1 or y1
-    const response = await fetchHTML(h1Url) || await fetchHTML(y1Url);
-    client.logger.debug(response);
-    const embed = constructEmbed(response);
-    if (response) message.channel.send({ embeds: [embed] });
-    else message.react('❌');
+    let response = await axios.get(h1Url);
+    if (getResponseUrl(response) !== h1Url) response = await axios.get(y1Url);
+    if (getResponseUrl(response) !== y1Url) message.react('❌');
+    else {
+      const embed = constructEmbed(response);
+      message.channel.send({ embeds: [embed] });
+    }
   }
 }

@@ -80,9 +80,12 @@ export default {
     }
 
     // courses are either h1 or y1
-    const response = await fetchHTML(h1Url) || await fetchHTML(y1Url);
-    const embed = constructEmbed(response);
-    if (response) interaction.reply({ embeds: [embed] });
-    else interaction.reply({ content: 'No such course found!', ephemeral: true });
+    let response = await axios.get(h1Url);
+    if (getResponseUrl(response) !== h1Url) response = await axios.get(y1Url);
+    if (getResponseUrl(response) !== y1Url) interaction.reply({ content: 'No such course found!', ephemeral: true });
+    else {
+      const embed = constructEmbed(response);
+      interaction.reply({ embeds: [embed] });
+    }
   },
 };
