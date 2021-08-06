@@ -18,7 +18,7 @@
 	"Sapphire command template": {
 		"prefix": "command",
 		"body": [
-			"import { Command } from '@sapphire/framework';",
+			"import { Args, Command } from '@sapphire/framework';",
 			"import { ApplyOptions } from '@sapphire/decorators';",
 			"import { Message } from 'discord.js';",
 			"",
@@ -32,7 +32,7 @@
 			"})",
 			"",
 			"export default class extends Command {",
-			"  public async run(message: Message): Promise<void> {",
+			"  public async run(message: Message, args: Args): Promise<void> {",
 			"    $0",
 			"  }",
 			"}",
