@@ -11,7 +11,7 @@ export default {
   options: [{
     name: 'course_code',
     type: 'STRING',
-    description: 'The course code you are looking up.',
+    description: 'The course code you are looking up',
     required: true,
   }],
   async execute(interaction: CommandInteraction): Promise<void> {
