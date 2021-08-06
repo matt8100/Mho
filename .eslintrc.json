@@ -20,17 +20,22 @@
     "rules": {
         "no-console": "off",
         "class-methods-use-this": "off",
-        "func-names": ["error", "as-needed"],
+        "func-names": ["warn", "as-needed"],
         "default-case": "off",
+        "no-unused-vars": "off",
+
+        "@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true }],
 
         "import/extensions": [ "error", "ignorePackages",
             { "ts": "never" }
          ],
+
         "node/no-missing-import": "off"
     },
     "settings": {
         "import/resolver": {
           "typescript": {} 
         }
-      }
+    },
+    "ignorePatterns": ["dist/"]
 }

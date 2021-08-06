@@ -17,7 +17,7 @@ import axios from '../../config/axios.js';
 })
 
 export default class extends Command {
-  public async run(message: Message, args: Args) {
+  public async run(message: Message, args: Args): Promise<Message> {
     const courseCode = await args.pick('string').catch(() => message.reply('You must specify a course code!'));
     const baseUrl = 'https://engineering.calendar.utoronto.ca';
     const h1Url = `${baseUrl}/course/${courseCode}h1`;
@@ -83,5 +83,6 @@ export default class extends Command {
       const embed = constructEmbed(response);
       message.channel.send({ embeds: [embed] });
     }
+    return message;
   }
 }

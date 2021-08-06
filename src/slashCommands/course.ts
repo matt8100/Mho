@@ -26,13 +26,6 @@ export default {
       return link.substring(link.indexOf('<') + 1, link.indexOf('>'));
     }
 
-    async function fetchHTML(url: string): Promise<AxiosResponse<unknown>> {
-      const response = await axios.get(url);
-      // If redirected, course does not exist
-      if (getResponseUrl(response) !== url) return Promise.reject();
-      return response;
-    }
-
     // Retrieves field text
     function getRelated($: CheerioAPI, fieldName: string): string {
       if (!($(`.field--name-field-${fieldName}`).length)) return '';

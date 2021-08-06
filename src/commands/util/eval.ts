@@ -15,7 +15,7 @@ import { inspect } from 'util';
 })
 
 export default class extends Command {
-  public async run(message: Message, args: Args) {
+  public async run(message: Message, args: Args): Promise<Message> {
     const code = await args.rest('string');
 
     const { result, success, type } = await this.eval(code, {
@@ -25,7 +25,7 @@ export default class extends Command {
     });
 
     const output = success ? codeBlock('js', result) : `**ERROR**: ${codeBlock('bash', result)}`;
-    if (args.getFlags('silent', 's')) return null;
+    if (args.getFlags('silent', 's')) return message;
 
     const typeFooter = `**Type**: ${codeBlock('typescript', type)}`;
 

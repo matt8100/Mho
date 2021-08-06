@@ -4,9 +4,9 @@ import { ApplyOptions } from '@sapphire/decorators';
 @ApplyOptions<EventOptions>({ once: true })
 
 export default class extends Listener {
-  public async run() {
+  public async run(): Promise<void> {
     const { client, logger } = this.container;
-    client.user!.setActivity('commands', { type: 'LISTENING' });
-    logger.info(`Logged in as ${client.user!.tag}! (${client.user!.id})`);
+    client.user?.setActivity('commands', { type: 'LISTENING' });
+    logger.info(`Logged in as ${client.user?.tag}! (${client.user?.id})`);
   }
 }

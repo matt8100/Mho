@@ -18,7 +18,7 @@ import axios from '../../config/axios.js';
 })
 
 export default class extends Command {
-  public async run(message: Message, args: Args) {
+  public async run(message: Message, args: Args): Promise<Message> {
     const query = await args.pick('string');
     const baseUrl = 'https://engineering.calendar.utoronto.ca/sessional-dates';
     type event = {
@@ -66,5 +66,6 @@ export default class extends Command {
     const display = new PaginatedMessage({ actions: PaginatedMessage.defaultActions });
     embeds.forEach((embed) => { display.addPageEmbed(embed); });
     display.run(message);
+    return message;
   }
 }

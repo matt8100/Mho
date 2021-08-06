@@ -32,7 +32,7 @@
 			"})",
 			"",
 			"export default class extends Command {",
-			"  public async run(message: Message) {",
+			"  public async run(message: Message): Promise<void> {",
 			"    $0",
 			"  }",
 			"}",
