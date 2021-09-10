@@ -1,7 +1,7 @@
-import { EventOptions, Listener } from '@sapphire/framework';
+import { ListenerOptions, Listener } from '@sapphire/framework';
 import { ApplyOptions } from '@sapphire/decorators';
 
-@ApplyOptions<EventOptions>({ once: true })
+@ApplyOptions<ListenerOptions>({ once: true })
 
 export default class extends Listener {
   public async run(): Promise<void> {
