@@ -48,7 +48,7 @@ export default class extends Command {
       // eslint-disable-next-line no-eval
       result = eval(runCode);
     } catch (error) {
-      if (error && error.stack) {
+      if (error && error instanceof Error && error.stack) {
         this.container.client.logger.error(error);
       }
       result = error;
