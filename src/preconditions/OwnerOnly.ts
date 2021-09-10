@@ -10,3 +10,9 @@ export default class UserPrecondition extends Precondition {
     });
   }
 }
+
+declare module '@sapphire/framework' {
+  interface Preconditions {
+    OwnerOnly: never;
+  }
+}
