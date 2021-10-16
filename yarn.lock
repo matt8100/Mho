@@ -182,14 +182,14 @@
     "@sapphire/utilities" "^3.0.1"
     tslib "^2.3.1"
 
-"@sapphire/plugin-logger@^1.0.13":
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/@sapphire/plugin-logger/-/plugin-logger-1.0.13.tgz#2bb7bca44b36481521e1a8f3af465b1cb6c5e58e"
-  integrity sha512-FC+9AG32cwbpRFytRLChz8tIH58e0j9ANK/UEDgJ4VsivQpC3I0HDrYeDJQNcLFu9qKzx1OGQYSADk5Svfsa9w==
+"@sapphire/plugin-logger@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@sapphire/plugin-logger/-/plugin-logger-2.0.0.tgz#9dea9298627586c1d333942395576876bf926d9c"
+  integrity sha512-9/aRA8yCtwpOne/NEayf14wyFOCf9nfRN12jqlt8PpiOOZgFt+Lm0WsPX7uWa0X6omobU4eQUKEgTUL6Vt7fMQ==
   dependencies:
-    "@sapphire/time-utilities" "^1.3.3"
-    colorette "^1.2.2"
-    tslib "^2.3.0"
+    "@sapphire/time-utilities" "^1.4.3"
+    colorette "^2.0.16"
+    tslib "^2.3.1"
 
 "@sapphire/ratelimits@^2.1.1":
   version "2.1.3"
@@ -203,7 +203,7 @@
   resolved "https://registry.yarnpkg.com/@sapphire/snowflake/-/snowflake-1.3.6.tgz#166e8c5c08d01c861edd7e2edc80b5739741715f"
   integrity sha512-QnzuLp+p9D7agynVub/zqlDVriDza9y3STArBhNiNBUgIX8+GL5FpQxstRfw1jDr5jkZUjcuKYAHxjIuXKdJAg==
 
-"@sapphire/time-utilities@^1.3.3", "@sapphire/time-utilities@^1.4.3":
+"@sapphire/time-utilities@^1.4.3":
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/@sapphire/time-utilities/-/time-utilities-1.4.3.tgz#18f508fb4f8a2e0899734992e6f8d96e373b222c"
   integrity sha512-AC55nNklE76Xm1POGw24PzPa3oNeuNNOJE+Ndjd8a48ie/0d2JITMc4QTCJT3VB3lh+fOL9hT/jgc+xHd8An8Q==
@@ -609,10 +609,10 @@ color-support@^1.1.2:
   resolved "https://registry.yarnpkg.com/color-support/-/color-support-1.1.3.tgz#93834379a1cc9a0c61f82f52f0d04322251bd5a2"
   integrity sha512-qiBjkpbMLO/HL68y+lh4q0/O1MZFj2RX6X/KmMa3+gJD3z+WwI1ZzDHysvqHGS3mP6mznPckpXmw1nI9cJjyRg==
 
-colorette@^1.2.2:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.4.0.tgz#5190fbb87276259a86ad700bff2c6d6faa3fca40"
-  integrity sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==
+colorette@^2.0.16:
+  version "2.0.16"
+  resolved "https://registry.yarnpkg.com/colorette/-/colorette-2.0.16.tgz#713b9af84fdb000139f04546bd4a93f62a5085da"
+  integrity sha512-hUewv7oMjCp+wkBv5Rm0v87eJhq4woh5rSR+42YSQJKecCqgIqNkZ6lAlQms/BwHPJA5NKMRlpxPRv0n8HQW6g==
 
 combined-stream@^1.0.8:
   version "1.0.8"

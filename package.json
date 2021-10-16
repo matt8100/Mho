@@ -4,7 +4,7 @@
     "@sapphire/decorators": "^3.1.1",
     "@sapphire/discord.js-utilities": "^3.0.0-next.600390f4.0",
     "@sapphire/framework": "^2.0.0-next.3bb6fa8f.0",
-    "@sapphire/plugin-logger": "^1.0.13",
+    "@sapphire/plugin-logger": "^2.0.0",
     "@sapphire/type": "^2.0.11",
     "@sapphire/utilities": "^3.0.3",
     "axios": "~0.21.1",
