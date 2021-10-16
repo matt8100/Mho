@@ -1,17 +1,17 @@
-FROM node:14-alpine as BUILDER
+FROM node:16-alpine as BUILDER
 
 WORKDIR /usr/src/app
 
 COPY package* tsconfig* .
-RUN npm ci --no-progress
+RUN yarn install
 
 COPY src/ src/
-RUN npm run build && \
-	npm prune --production
+RUN yarn run build && \
+	yarn install --production
 	
 #############################
 
-FROM node:14-alpine as RUNNER
+FROM node:16-alpine as RUNNER
 
 ENV TZ America/Los_Angeles
 ENV NODE_ENV production
