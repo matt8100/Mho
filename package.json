@@ -19,16 +19,16 @@
     "turndown": "^7.1.1"
   },
   "devDependencies": {
-    "@tsconfig/node14": "^1.0.1",
-    "@types/redis": "^2.8.31",
-    "@types/turndown": "^5.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-import-resolver-typescript": "^2.4.0",
+    "@tsconfig/node14": "1.0.1",
+    "@types/redis": "2.8.32",
+    "@types/turndown": "5.0.1",
+    "@typescript-eslint/eslint-plugin": "5.0.0",
+    "@typescript-eslint/parser": "5.0.0",
+    "eslint": "7.32.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-import-resolver-typescript": "2.5.0",
     "eslint-plugin-node": "11.1.0",
-    "typescript": "^4.3.5"
+    "typescript": "4.4.4"
   },
   "name": "mho",
   "description": "A Discord bot for the UofT ECE 2T4 server.",
