@@ -15,7 +15,7 @@ export default {
     required: true,
   }],
   async execute(interaction: CommandInteraction): Promise<void> {
-    const courseCode = interaction.options.getString('course_code');
+    const courseCode = interaction.options.getString('course_code')?.toLowerCase();
     const baseUrl = 'https://engineering.calendar.utoronto.ca';
     const h1Url = `${baseUrl}/course/${courseCode}h1`;
     const y1Url = `${baseUrl}/course/${courseCode}y1`;
