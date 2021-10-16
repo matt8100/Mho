@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   mho:
-    image: matt8100/mho:dev
+    image: matt8100/mho
     container_name: mho
     restart: "unless-stopped"
     environment:
