@@ -77,8 +77,9 @@ export default {
     if (getResponseUrl(response) === h1Url) {
       const embed = constructEmbed(response);
       interaction.reply({ embeds: [embed] });
-      Promise.resolve();
-    } else response = await axios.get(y1Url);
+      return;
+    }
+    response = await axios.get(y1Url);
     if (getResponseUrl(response) === y1Url) {
       const embed = constructEmbed(response);
       interaction.reply({ embeds: [embed] });
