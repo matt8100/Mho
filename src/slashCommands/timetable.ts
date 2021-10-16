@@ -142,7 +142,9 @@ export default {
     });
 
     collector.on('end', (collected) => {
-      if (collected.size) collected.last()?.update({ components: [] });
+      const embed = embeds
+        .find((e) => e.fields[0].value === collected.last()?.values[0]) || embeds[0];
+      if (collected) message.edit({ embeds: [embed], components: [] });
       else interaction.editReply({ embeds: [embeds[0]], components: [] });
     });
 
