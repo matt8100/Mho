@@ -7,7 +7,7 @@ export default {
   description: 'This makes a button!',
   options: [{
     name: 'input',
-    type: 'STRING',
+    type: 3,
     description: 'You can put something for the button to say!',
     required: false,
   }],

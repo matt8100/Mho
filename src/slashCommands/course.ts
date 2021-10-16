@@ -10,7 +10,7 @@ export default {
   description: 'Lookup a course by course code',
   options: [{
     name: 'course_code',
-    type: 'STRING',
+    type: 3,
     description: 'The course code you are looking up',
     required: true,
   }],
@@ -74,11 +74,14 @@ export default {
 
     // courses are either h1 or y1
     let response = await axios.get(h1Url);
-    if (getResponseUrl(response) !== h1Url) response = await axios.get(y1Url);
-    if (getResponseUrl(response) !== y1Url) interaction.reply({ content: 'No such course found!', ephemeral: true });
-    else {
+    if (getResponseUrl(response) === h1Url) {
       const embed = constructEmbed(response);
       interaction.reply({ embeds: [embed] });
-    }
+      Promise.resolve();
+    } else response = await axios.get(y1Url);
+    if (getResponseUrl(response) === y1Url) {
+      const embed = constructEmbed(response);
+      interaction.reply({ embeds: [embed] });
+    } else interaction.reply({ content: 'No such course found!', ephemeral: true });
   },
 };

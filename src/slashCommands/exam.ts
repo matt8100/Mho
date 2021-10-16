@@ -9,7 +9,7 @@ export default {
   description: 'Lookup final exam times on the exam schedule by course code',
   options: [{
     name: 'course_code',
-    type: 'STRING',
+    type: 3,
     description: 'The course code you are looking up',
     required: true,
   }],
