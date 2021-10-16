@@ -27,7 +27,7 @@ export default async (client: MhoClient): Promise<void> => {
         container.logger.info('Started refreshing global application (/) commands.');
 
         await rest.put(
-          Routes.applicationCommands('805674424388157450'),
+          Routes.applicationCommands('844704802242953226'),
           { body: commands },
         );
 
