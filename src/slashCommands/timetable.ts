@@ -80,7 +80,7 @@ export default {
     }
 
     function search(response: AxiosResponse) {
-      const $ = cheerio.load(response.data);
+      const $ = cheerio.load(response.data as never);
 
       const course: Course = { code: '', sections: [] };
       $('table').slice(1).find('tr').slice(1)
