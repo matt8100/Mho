@@ -26,6 +26,6 @@ jobs:
         uses: docker/build-push-action@v2.6.1
         with:
           push: true
-          tags: matt8100/Mho:latest
+          tags: matt8100/mho:latest
 
 
