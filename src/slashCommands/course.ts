@@ -50,7 +50,7 @@ export default {
     }
 
     function constructEmbed(response: AxiosResponse): MessageEmbed {
-      const $ = cheerio.load(response.data);
+      const $ = cheerio.load(response.data as never);
 
       const courseTitle = $('h1').text();
       const courseUrl = getResponseUrl(response);
