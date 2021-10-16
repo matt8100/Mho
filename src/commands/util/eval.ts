@@ -15,7 +15,7 @@ import { inspect } from 'util';
 })
 
 export default class extends Command {
-  public async run(message: Message, args: Args): Promise<Message> {
+  public async messageRun(message: Message, args: Args): Promise<Message> {
     const code = await args.rest('string');
 
     const { result, success, type } = await this.eval(code, {
