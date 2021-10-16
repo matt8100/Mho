@@ -19,7 +19,7 @@ export default {
     const scheduleUrl = 'https://portal.engineering.utoronto.ca/sites/timetable/fes.aspx';
 
     function constructEmbed(response: AxiosResponse) {
-      const $ = cheerio.load(response.data);
+      const $ = cheerio.load(response.data as never);
 
       const courseTitle = $(`strong:contains(${courseCode})`).text().replace(/\n\s+/g, '');
       const courseUrl = baseUrl + courseTitle;
