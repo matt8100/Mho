@@ -1,4 +1,4 @@
-FROM node:16-alpine as BUILDER
+FROM node:17-alpine as BUILDER
 
 WORKDIR /usr/src/app
 
@@ -11,7 +11,7 @@ RUN yarn run build && \
 	
 #############################
 
-FROM node:16-alpine as RUNNER
+FROM node:17-alpine as RUNNER
 
 ENV TZ America/Los_Angeles
 ENV NODE_ENV production
