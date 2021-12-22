@@ -7,7 +7,7 @@
     "@sapphire/plugin-logger": "^2.0.0",
     "@sapphire/type": "^2.1.0",
     "@sapphire/utilities": "^3.0.3",
-    "axios": "^0.23.0",
+    "axios": "^0.24.0",
     "axios-cache-adapter": "^2.7.3",
     "cheerio": "^1.0.0-rc.10",
     "discord-api-types": "^0.26.0",
