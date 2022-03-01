@@ -28,7 +28,7 @@
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-import-resolver-typescript": "2.5.0",
     "eslint-plugin-node": "11.1.0",
-    "typescript": "4.5.5"
+    "typescript": "4.6.2"
   },
   "name": "mho",
   "description": "A Discord bot for the UofT ECE 2T4 server.",
