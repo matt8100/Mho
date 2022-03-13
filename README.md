@@ -15,7 +15,7 @@ This bot uses [Discord.js](https://discord.js.org/#/) and the [Sapphire Framewor
 ```shell
 /course [course code]               // displays course description from https://engineering.calendar.utoronto.ca/
 /timetable [session] [course code]  // displays course timetable information from https://undergrad.engineering.utoronto.ca/academics-registration/course-timetables/
-/exam [course] code                 // displays exam schedule details from https://portal.engineering.utoronto.ca/sites/timetable/fes.aspx
+/exam [course code]                 // displays exam schedule details from https://portal.engineering.utoronto.ca/sites/timetable/fes.aspx
 ```
 
 ## Setup
