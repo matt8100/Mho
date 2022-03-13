@@ -6,18 +6,16 @@
 Mho is a Discord bot for engineering students at UofT.
 
 Requires:
-- [Node.js 14.0.0 or newer](https://nodejs.org/en/)
+- [Node.js 16.0.0 or newer](https://nodejs.org/en/)
 
-This bot uses [Discord.js](https://discord.js.org/#/) and the [Commando framework](https://github.com/discordjs/Commando)
+This bot uses [Discord.js](https://discord.js.org/#/) and the [Sapphire Framework](https://www.sapphirejs.dev/)
 
 ## Commands
 
 ```shell
-calendar|cal query
-course|c course-code
-exam|e course-code
-info|i [key] # Providing no key lists all available keys
-infoedit|ie {add|edit|delete} key [value]
+/course [course code]               // displays course description from https://engineering.calendar.utoronto.ca/
+/timetable [session] [course code]  // displays course timetable information from https://undergrad.engineering.utoronto.ca/academics-registration/course-timetables/
+/exam [course] code                 // displays exam schedule details from https://portal.engineering.utoronto.ca/sites/timetable/fes.aspx
 ```
 
 ## Setup
