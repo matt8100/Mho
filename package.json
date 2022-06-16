@@ -19,7 +19,7 @@
     "turndown": "^7.1.1"
   },
   "devDependencies": {
-    "@tsconfig/node14": "1.0.2",
+    "@tsconfig/node14": "1.0.3",
     "@types/redis": "4.0.10",
     "@types/turndown": "5.0.1",
     "@typescript-eslint/eslint-plugin": "5.28.0",
