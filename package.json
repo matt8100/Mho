@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@discordjs/rest": "^0.4.0",
+    "@discordjs/rest": "^1.0.0",
     "@sapphire/decorators": "^4.0.0",
     "@sapphire/discord.js-utilities": "^4.0.0",
     "@sapphire/framework": "^2.0.0",
