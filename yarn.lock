@@ -165,10 +165,10 @@
   dependencies:
     "@sapphire/utilities" "^3.9.3"
 
-"@sapphire/decorators@^4.0.0":
-  version "4.3.8"
-  resolved "https://registry.yarnpkg.com/@sapphire/decorators/-/decorators-4.3.8.tgz#706c701ad1c5b0fa6ffa18163a62a7e030c7bb3f"
-  integrity sha512-W8vU0AHuyx5mRAEG/YvxPs6Th99zNyIlsmw+JjUtk8S+fUd2TZor2JfFPMdNvQhUPDzAzdCagCM7cNNOOtLfXQ==
+"@sapphire/decorators@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@sapphire/decorators/-/decorators-5.0.0.tgz#a7437402d613fea8bc09139ed3bc74b51ac6efc8"
+  integrity sha512-jEHsE79nacjlwbfX2zyRCQ15lEzJLI4gEVZGU9iKmqbXVM0FcwrqZeQoGovIGxq5y0UIymvtYZJXhGkHLBpSdg==
   dependencies:
     tslib "^2.4.0"
 
